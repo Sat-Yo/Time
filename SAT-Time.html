@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG@Sat_Yoi</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            flex-direction: column; /* Добавляем колоннное направление */
+        }
+        .clock {
+            display: flex;
+            align-items: center;
+            font-size: 2.4em;
+            color: #7a7a7a;
+            font-weight: 500;
+            position: relative;
+        }
+        .hours, .secs, .colon1, .colon2 {
+            position: absolute;
+        }
+        .mins {
+            position: relative;
+            z-index: 1;
+        }
+        .colon1 {
+            right: 100%;
+            margin-right: 0.1em;
+        }
+        .hours {
+            right: calc(100% + 0.4em);
+        }
+        .colon2 {
+            left: 100%;
+            margin-left: 0.1em;
+        }
+        .secs {
+            left: calc(100% + 0.4em);
+        }
+        .date {
+            font-size: 1.3em;
+            color: #c1c1c1;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="hours" id="hours">--</div>
+        <div class="colon1">:</div>
+        <div class="mins" id="mins">--</div>
+        <div class="colon2">:</div>
+        <div class="secs" id="secs">--</div>
+    </div>
+    <div class="date" id="date">-,-.-</div>
+
+    <script>
+        function update() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const mins = String(now.getMinutes()).padStart(2, '0');
+            const secs = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('mins').textContent = mins;
+            document.getElementById('secs').textContent = secs;
+
+            const dayNames = ['Sumday', 'Moneyday', 'Tuewsday', 'Weednesday', 'Thugsday', 'Freeday', 'Saturnday'];
+            const dayName = dayNames[now.getDay()];
+            const dayDate = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            document.getElementById('date').textContent = `${dayName}, ${dayDate}.${month}`;
+        }
+
+        setInterval(update, 1000);
+        update(); // initial call to display clock immediately
+    </script>
+</body>
+</html>
